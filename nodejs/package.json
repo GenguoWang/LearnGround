@@ -1,0 +1,6 @@
+{
+  "description": "learn nodejs",
+  "dependencies": {
+    "yargs": "^5.0.0"
+  }
+}
