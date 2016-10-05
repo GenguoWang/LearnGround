@@ -7,7 +7,7 @@ var server = http.createServer(function(req, res){
   console.log(req.headers);
 
   res.writeHead(200, {'Content-Type':'text/html'});
-  res.end('<h1>Hello World</h1>');
+  res.end('<h1>Hello World</h1>'+wgg);
 });
 
 server.listen(port, hostname, function (){
