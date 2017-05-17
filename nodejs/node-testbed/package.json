@@ -1,0 +1,15 @@
+{
+  "name": "node-testbed",
+  "version": "1.0.0",
+  "description": "test ",
+  "main": "extract-word.js",
+  "dependencies": {
+    "keyword-extractor": "0.0.13"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
