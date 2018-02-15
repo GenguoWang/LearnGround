@@ -115,8 +115,8 @@ class Game {
     this.targetBoard.invalid = true
     this.targetMatric = getMatric(this.targetBoard.shapes)
     this.levels[this.currentLevel] = {
-      initShapes:this.workBoard.shapes,
-      targetShapes:this.targetBoard.shapes
+      initShapes:this.workBoard.shapes.map(s=>new Shape(s.points, s.origin)),
+      targetShapes:this.targetBoard.shapes.map(s=>new Shape(s.points, s.origin))
     }
     localStorage.setItem("LEVELS", JSON.stringify(this.levels))
   }
