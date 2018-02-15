@@ -3,7 +3,9 @@ console.log("wgg")
 console.log(turf)
 
 function toTurfPolygon(shape) {
-  const points = shape.points.map(p=>[p.x+shape.origin.x,p.y+shape.origin.y]).concat([[shape.points[0].x+shape.origin.x,shape.points[0].y+shape.origin.y]])
+  const points = shape.points.map(p=>
+    [p.x + shape.origin.x,p.y + shape.origin.y])
+    .concat([[shape.points[0].x + shape.origin.x,shape.points[0].y + shape.origin.y]])
   return turf.polygon([ points ])
 }
 
@@ -72,19 +74,19 @@ export function render(shapes,ctx) {
 }
 
 function translate(f,x,y) {
-    if (f.geometry.type === "MultiPolygon") {
-      f.geometry.coordinates.forEach(points=> {
-        points[0].forEach(p=>{
-          p[0]+=x
-          p[1]+=y
-        })
+  if (f.geometry.type === "MultiPolygon") {
+    f.geometry.coordinates.forEach(points=> {
+      points[0].forEach(p=>{
+        p[0] += x
+        p[1] += y
       })
-    } else if (f.geometry.type === "Polygon") {
-      f.geometry.coordinates[0].forEach(p=>{
-          p[0]+=x
-          p[1]+=y
-      })
-    }
+    })
+  } else if (f.geometry.type === "Polygon") {
+    f.geometry.coordinates[0].forEach(p=>{
+      p[0] += x
+      p[1] += y
+    })
+  }
 }
 
 export function match(f1, f2) {
@@ -94,8 +96,8 @@ export function match(f1, f2) {
   console.log(f2)
   console.log(bbox1)
   console.log(bbox2)
-  if (bbox1[2]-bbox1[0] !== bbox2[2]-bbox2[0]
-    || bbox1[3]-bbox1[1] !== bbox2[3]-bbox2[1]) {
+  if (bbox1[2] - bbox1[0] !== bbox2[2] - bbox2[0]
+    || bbox1[3] - bbox1[1] !== bbox2[3] - bbox2[1]) {
     return false
   }
   translate(f1, -bbox1[0], -bbox1[1])

@@ -51,7 +51,7 @@ class Board {
     ctx.fillStyle = "#000000"
     ctx.save()
     ctx.scale(this.ratio, this.ratio)
-    if(this.isMouseDown) {
+    if (this.isMouseDown) {
       this.shapes.forEach(function (shape) {
         if (shape === this.currentShape) {
           ctx.save()
