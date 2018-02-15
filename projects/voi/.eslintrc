@@ -1,0 +1,50 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "max-len": [
+      "warn", // type of result
+      100, // max len
+      2 // tabwidth
+    ],
+    "no-tabs": ["warn"],
+    "eqeqeq": ["error", "smart"],
+    "no-trailing-spaces": ["error"],
+    "no-whitespace-before-property": "error",
+    "no-multi-spaces": "error",
+    "no-console": ["error", { "allow": ["log"] }], // for dev
+    "space-before-blocks": "error",
+    "space-before-function-paren": ["error", 
+      {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
+    "space-in-parens": ["error", "never"],
+    "space-infix-ops": "error",
+    "space-unary-ops": [
+      2, {
+        "words": true,
+        "nonwords": false
+    }],
+    "spaced-comment": ["error", "always"],
+    "keyword-spacing": ["error"],
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "no-unexpected-multiline": "error",
+    "semi": ["error", "never"],
+    "indent": ["warn", 2],
+    "no-unused-vars": ["warn", { "args": "none" }]
+  },
+  "extends": "eslint:recommended",
+  "plugins": [
+    "react"
+  ]
+}
