@@ -56,13 +56,27 @@ function getMatric(shapes) {
 
 class Game {
   constructor(canvas, bgCanvas, targetCanvas, targetBgCanvas,levels,editCanvas) {
-    this.workBoard = new Board(canvas, bgCanvas,20,20,20)
+    const size = 15
+    canvas.width = canvas.clientWidth
+    canvas.height = canvas.clientHeight
+    bgCanvas.width = bgCanvas.clientWidth
+    bgCanvas.height = bgCanvas.clientHeight
+    targetCanvas.width = targetCanvas.clientWidth
+    targetCanvas.height = targetCanvas.clientHeight
+    targetBgCanvas.width = targetBgCanvas.clientWidth
+    targetBgCanvas.height = targetBgCanvas.clientHeight
+    editCanvas.width = editCanvas.clientWidth
+    editCanvas.height = editCanvas.clientHeight
+    console.log(canvas.clientWidth)
+    console.log(targetCanvas.clientWidth)
+    this.workBoard = new Board(canvas, bgCanvas,size,size,(canvas.clientWidth - 1) / size)
     this.workBoard.isMatching = this.isMatching.bind(this)
-    this.editor = new Editor(editCanvas)
+    this.editor = new Editor(editCanvas, editCanvas.clientWidth / size)
     this.editor.addShape = this.addShape.bind(this)
     this.editor.hide()
     this.isEditing = false
-    this.targetBoard = new Board(targetCanvas, targetBgCanvas,20,20,15, true)
+    const targetSize = 12
+    this.targetBoard = new Board(targetCanvas, targetBgCanvas,targetSize,targetSize,(targetCanvas.clientWidth - 1) / targetSize, true)
     this.levels = levels
     this.currentLevel = 0
     this.loadLevel()
