@@ -9,14 +9,16 @@ function toTurfPolygon(shape) {
   return turf.polygon([ points ])
 }
 
-function drawPoints(points, ctx) {
-  ctx.beginPath()
-  const startPoint = points[0]
-  ctx.moveTo(startPoint[0], startPoint[1])
-  for (let i = 1;i < points.length;++i) {
-    ctx.lineTo(points[i][0], points[i][1])
-  }
-  ctx.fill()
+function drawPoints(pointsArray, ctx) {
+  pointsArray.forEach(points=>{
+    ctx.beginPath()
+    const startPoint = points[0]
+    ctx.moveTo(startPoint[0], startPoint[1])
+    for (let i = 1;i < points.length;++i) {
+      ctx.lineTo(points[i][0], points[i][1])
+    }
+    ctx.fill()
+  })
 }
 
 export function calculate(shapes) {
@@ -49,7 +51,9 @@ export function calculate(shapes) {
   console.log("result")
   console.log(result)
   const fc = turf.featureCollection(result)
-  const combinedResult = turf.combine(turf.unkinkPolygon(fc))
+  // unkinkPolygon only in new version
+  // const combinedResult = turf.combine(turf.unkinkPolygon(fc))
+  const combinedResult = turf.combine(fc)
   console.log(combinedResult)
   if (combinedResult.features.length > 1) {
     alert("combined error")
@@ -73,9 +77,9 @@ export function render(shapes,ctx) {
     console.log("tmp",tmp)
     if (r.geometry.type === "MultiPolygon") {
       console.log("draw")
-      r.geometry.coordinates.forEach(points=>drawPoints(points[0], ctx))
+      r.geometry.coordinates.forEach(points=>drawPoints(points, ctx))
     } else if (r.geometry.type === "Polygon") {
-      drawPoints(r.geometry.coordinates[0],ctx)
+      drawPoints(r.geometry.coordinates,ctx)
     }
   }
 }
@@ -116,5 +120,5 @@ export function match(f1, f2) {
   const d2 = turf.difference(f2, f1)
   console.log(d1)
   console.log(d2)
-  return (d1 === null || turf.area(d1) < 100) && (d2 === null || turf.area(d2) < 100)
+  return (d1 == null || turf.area(d1) < 100) && (d2 == null || turf.area(d2) < 100)
 }

@@ -1,5 +1,7 @@
 import Game from './game'
 import {createFromJson} from './level'
+import 'promise-polyfill'
+import 'whatwg-fetch'
 
 document.addEventListener("DOMContentLoaded", function () {
   const bgCanvas = document.getElementById("bg")

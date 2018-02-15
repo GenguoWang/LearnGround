@@ -13,7 +13,7 @@
   "author": "Kingo Wang",
   "license": "ISC",
   "dependencies": {
-    "@turf/turf": "5.1.6",
+    "@turf/turf": "3.9.0",
     "babel-core": "6.20.0",
     "babel-eslint": "7.1.1",
     "babel-loader": "6.2.9",
@@ -26,10 +26,12 @@
     "eslint-plugin-react": "6.8.0",
     "immutable": "3.8.2",
     "kld-intersections": "0.4.1",
+    "promise-polyfill": "7.1.0",
     "react": "15.4.1",
     "react-dom": "15.4.1",
     "style-loader": "0.13.1",
     "webpack": "1.14.0",
-    "webpack-dev-server": "1.16.2"
+    "webpack-dev-server": "1.16.2",
+    "whatwg-fetch": "2.0.3"
   }
 }
