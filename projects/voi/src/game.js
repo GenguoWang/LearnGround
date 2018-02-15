@@ -76,7 +76,13 @@ class Game {
     this.editor.hide()
     this.isEditing = false
     const targetSize = 12
-    this.targetBoard = new Board(targetCanvas, targetBgCanvas,targetSize,targetSize,(targetCanvas.clientWidth - 1) / targetSize, true)
+    this.targetBoard = new Board(
+      targetCanvas,
+      targetBgCanvas,
+      targetSize,
+      targetSize,
+      (targetCanvas.clientWidth - 1) / targetSize,
+      true)
     this.levels = levels
     this.currentLevel = 0
     this.loadLevel()
