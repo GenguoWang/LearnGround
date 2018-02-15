@@ -20,7 +20,7 @@ function drawPoints(points, ctx) {
 }
 
 export function calculate(shapes) {
-  if (shapes.length <= 1) {
+  if (shapes.length < 1) {
     return null
   }
   const polygons = shapes.map(s=>toTurfPolygon(s))
@@ -49,21 +49,28 @@ export function calculate(shapes) {
   console.log("result")
   console.log(result)
   const fc = turf.featureCollection(result)
-  const combinedResult = turf.combine(fc)
+  const combinedResult = turf.combine(turf.unkinkPolygon(fc))
   console.log(combinedResult)
   if (combinedResult.features.length > 1) {
     alert("combined error")
   }
-  if (combinedResult.features.length === 1) {
-    return combinedResult.features[0]
+  if (combinedResult.features.length === 0) {
+    return null
   }
-  return null
+  const r = combinedResult.features[0]
+  if (r.geometry.type === "MultiPolygon") {
+    // union all the polygons
+    const pl = r.geometry.coordinates.map(points=>turf.polygon(points))
+    return turf.union.apply(null, pl)
+  }
 }
 
 export function render(shapes,ctx) {
   const r = calculate(shapes)
   console.log("r",r)
   if (r) {
+    var tmp = turf.union(r)
+    console.log("tmp",tmp)
     if (r.geometry.type === "MultiPolygon") {
       console.log("draw")
       r.geometry.coordinates.forEach(points=>drawPoints(points[0], ctx))

@@ -55,7 +55,6 @@ class Board {
       this.shapes.forEach(function (shape) {
         if (shape === this.currentShape) {
           ctx.save()
-          ctx.translate(this.currentOffset.x, this.currentOffset.y)
           shape.draw(ctx)
           ctx.restore()
         } else {
@@ -73,15 +72,16 @@ class Board {
     if (this.invalid) {
       return
     }
-    this.startPoint = this.getPointFromMouseEvent(e)
+    const touchPoint = this.getPointFromMouseEvent(e)
     this.currentShape = null
     for (let i = 0; i < this.shapes.length; ++i) {
-      if (this.shapes[i].containsPoint(this.startPoint)) {
+      if (this.shapes[i].containsPoint(touchPoint)) {
         // Move the target shape to the top.
         const tmp = this.shapes[0]
         this.shapes[0] = this.shapes[i]
         this.shapes[i] = tmp
         this.currentShape = this.shapes[0]
+        this.startPoint = this.currentShape.origin.minus(touchPoint)
         break
       }
     }
@@ -95,10 +95,8 @@ class Board {
     }
     if (this.isMouseDown && this.currentShape) {
       this.isMouseDown = false
-      this.currentShape.origin = this.currentShape.origin.add(this.currentOffset)
       this.currentShape.origin =
         new Point(Math.round(this.currentShape.origin.x), Math.round(this.currentShape.origin.y))
-      this.currentOffset = Point.ZERO
       this.render()
       this.isMatching && this.isMatching()
     }
@@ -113,15 +111,16 @@ class Board {
     }
     if (this.isMouseDown && this.currentShape) {
       const nowPoint = this.getPointFromMouseEvent(e)
-      this.currentOffset = nowPoint.minus(this.startPoint)
+      this.currentShape.origin = this.startPoint.add(nowPoint)
       this.render()
     }
   }
 
   getPointFromMouseEvent(e) {
     if (e.touches) {
-      return new Point((e.touches[0].clientX - this.canvas.offsetLeft) / this.ratio
-      ,(e.touches[0].clientY - this.canvas.offsetTop) / this.ratio)
+      const rect = this.canvas.getBoundingClientRect()
+      return new Point((e.touches[0].clientX - rect.left) / this.ratio
+      ,(e.touches[0].clientY - rect.top) / this.ratio)
     }
     return new Point(e.offsetX / this.ratio, e.offsetY / this.ratio)
   }
