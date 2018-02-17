@@ -55,7 +55,7 @@ function getMatric(shapes) {
 }
 
 class Game {
-  constructor(canvas, bgCanvas, targetCanvas, targetBgCanvas,levels,editCanvas) {
+  constructor(canvas, bgCanvas, targetCanvas, targetBgCanvas, editCanvas) {
     const size = 15
     canvas.width = canvas.clientWidth
     canvas.height = canvas.clientHeight
@@ -83,9 +83,6 @@ class Game {
       targetSize,
       (targetCanvas.clientWidth - 1) / targetSize,
       true)
-    this.levels = levels
-    this.currentLevel = 0
-    this.loadLevel()
 
     this.editBtn = document.getElementById("edit")
     this.editBtn.addEventListener("click",e=>{
@@ -102,16 +99,6 @@ class Game {
       this.targetBoard.loadShapes([])
       this.workBoard.loadShapes([])
     })
-    this.addBtn = document.getElementById("add")
-    this.addBtn.addEventListener("click", e=>{
-      this.levels.push({
-        initShapes:[],
-        targetShapes:[]
-      })
-      this.currentLevel = this.levels.length - 1
-      this.loadLevel()
-      this.edit()
-    })
   }
   stopEdit() {
     this.isEditing = false
@@ -120,11 +107,7 @@ class Game {
     this.clearBtn.style.display = "none"
     this.targetBoard.invalid = true
     this.targetMatric = getMatric(this.targetBoard.shapes)
-    this.levels[this.currentLevel] = {
-      initShapes:this.workBoard.shapes.map(s=>new Shape(s.points, s.origin)),
-      targetShapes:this.targetBoard.shapes.map(s=>new Shape(s.points, s.origin))
-    }
-    localStorage.setItem("LEVELS", JSON.stringify(this.levels))
+    this.delegate.onLevelEdit(this.workBoard.shapes, this.targetBoard.shapes)
   }
   edit() {
     this.isEditing = true
@@ -133,12 +116,10 @@ class Game {
     this.clearBtn.style.display = "inline"
     this.targetBoard.invalid = false
   }
-  loadLevel() {
-    const level = this.levels[this.currentLevel]
+  loadLevel(level) {
     this.workBoard.loadShapes(level.initShapes)
     this.targetBoard.loadShapes(level.targetShapes)
     this.targetMatric = getMatric(level.targetShapes)
-    console.log(this.targetMatric)
   }
   addShape(shape) {
     this.workBoard.addShape(new Shape(shape.points,shape.origin))
@@ -149,10 +130,7 @@ class Game {
     const f2 = calculate(this.workBoard.shapes)
     if (match(f1,f2)) {
       console.log("Match!")
-      if (this.currentLevel < this.levels.length - 1) {
-        this.currentLevel += 1
-        this.loadLevel()
-      }
+      this.delegate.puzzleSolved()
     }
     /*
     const matric = getMatric(this.workBoard.shapes)

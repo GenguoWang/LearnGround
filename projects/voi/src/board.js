@@ -23,6 +23,7 @@ class Board {
     canvas.addEventListener("mousedown",this.mousedown.bind(this))
     canvas.addEventListener("touchstart",this.mousedown.bind(this))
     canvas.addEventListener("mouseup",this.mouseup.bind(this))
+    canvas.addEventListener("mouseout",this.mouseup.bind(this))
     canvas.addEventListener("touchend",this.mouseup.bind(this))
     canvas.addEventListener("mousemove",this.mousemove.bind(this))
     canvas.addEventListener("touchmove",this.mousemove.bind(this))

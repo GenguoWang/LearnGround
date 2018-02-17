@@ -29,6 +29,7 @@
     "promise-polyfill": "7.1.0",
     "react": "15.4.1",
     "react-dom": "15.4.1",
+    "socket.io": "2.0.4",
     "style-loader": "0.13.1",
     "webpack": "1.14.0",
     "webpack-dev-server": "1.16.2",
