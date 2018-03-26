@@ -30,6 +30,13 @@ function getOpponent() {
 
 class App {
   constructor() {
+    const wgg = "wgg"
+    console.log({
+      wgg,
+      ttt() {
+
+      }
+    })
     this.currentLevel = 0
     this.addBtn = document.getElementById("add")
     this.addBtn.addEventListener("click", e=>{
