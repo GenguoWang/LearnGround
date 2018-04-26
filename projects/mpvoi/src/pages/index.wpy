@@ -1,0 +1,52 @@
+<style lang="less">
+  .box {
+    border: black solid 1px;
+    width: 200px;
+    height: 200px;
+  }
+</style>
+<template>
+  <view class="container">
+    <div>{{mynum}}</div>
+    <canvas canvas-id="voiTarget" class="box"></canvas>
+    <canvas canvas-id="voi" disable-scroll="true" class="box" @touchstart="touchstart" @touchend="touchend" @touchmove="touchmove"></canvas>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Board from '../logic/board'
+  import {LEVELS} from '../logic/level'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: 'test'
+    }
+    data = {
+      mynum: 23,
+    }
+    methods = {
+      touchstart(e) {
+        this.mynum++
+        this.board && this.board.mousedown(e)
+      },
+      touchmove(e) {
+        this.mynum++
+        this.board && this.board.mousemove(e)
+      },
+      touchend(e) {
+        this.mynum++
+        this.board && this.board.mouseup(e)
+      }
+    }
+    onLoad() {
+      console.log('onLoad')
+      const context = wepy.createCanvasContext('voi')
+      //context.globalCompositeOperation = "xor"
+      console.log('wgg')
+
+      this.board = new Board(context, null)
+      this.board.loadShapes(LEVELS[0].initShapes)
+    }
+  }
+</script>
