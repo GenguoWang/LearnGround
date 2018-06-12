@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <title>test</title>
+</head>
+<body>
+
+<script>
+  document.addEventListener('keydown', (event) => {
+    const keyName = event.key;
+    console.log('keydown', event);
+
+    if (keyName === 'Control') {
+      // do not alert when only Control key is pressed.
+      return;
+    }
+
+    if (event.ctrlKey) {
+      // Even though event.key is not 'Control' (i.e. 'a' is pressed),
+      // event.ctrlKey may be true if Ctrl key is pressed at the time.
+    } else {
+    }
+  }, false);
+
+  document.addEventListener('keyup', (event) => {
+    const keyName = event.key;
+    console.log('keyup', event);
+
+    // As the user release the Ctrl key, the key is no longer active.
+    // So event.ctrlKey is false.
+    if (keyName === 'Control') {
+    }
+  }, false);
+</script>
+</body>
+</html>

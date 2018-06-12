@@ -7,7 +7,7 @@ from datetime import datetime
 parser = argparse.ArgumentParser(description='Convert bank exported csv to sui csv file.')
 parser.add_argument('filenames', nargs='+', help='The filenames of bank exported csvs')
 parser.add_argument('-o', '--output', default = 'out.csv', help='Output file name')
-parser.add_argument('--after', help='only convert items after curtain date')
+parser.add_argument('--after', help='only convert items after curtain date e.g 05/18/1990')
 args = parser.parse_args()
 head = open('head.txt').read()
 foot = open('foot.txt').read()

@@ -1,0 +1,16 @@
+{
+  "name": "chrome-remote",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kingo Wang",
+  "license": "ISC",
+  "dependencies": {
+    "chrome-remote-interface": "0.25.5",
+    "rambdax": "0.9.1",
+    "robotjs": "0.5.1"
+  }
+}
