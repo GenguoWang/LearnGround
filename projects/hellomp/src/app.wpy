@@ -1,0 +1,93 @@
+<style lang="less">
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+</style>
+
+<script>
+import wepy from 'wepy'
+import 'wepy-async-function'
+
+const secret = '4c34ad1b8a272b1c0b18af52e420c921'
+
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/index'
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#fff',
+      navigationBarTitleText: 'WeChat',
+      navigationBarTextStyle: 'black'
+    }
+  }
+
+  globalData = {
+    userInfo: null
+  }
+
+  constructor () {
+    super()
+    this.use('requestfix')
+    // https://github.com/Tencent/wepy/wiki/wepy%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8Promise
+    this.use('promisify');
+  }
+
+  onLaunch() {
+    this.testAsync()
+  }
+
+  sleep (s) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('promise resolved')
+      }, s * 1000)
+    })
+  }
+
+  async testAsync () {
+    const data = await this.sleep(3)
+    console.log(data)
+    // login
+    const code = await wepy.login()
+    console.log("login code:", code)
+    const url = `https://api.weixin.qq.com/sns/jscode2session?appid=wx40d72906d8b46122&secret=${secret}&js_code=${code.code}&grant_type=authorization_code`
+    console.log('login url', url)
+    const response = await wepy.request(url)
+    console.log(response)
+  }
+
+  getUserInfo(cb) {
+    console.log('getUserInfo wgg')
+    const that = this
+    if (this.globalData.userInfo) {
+      return this.globalData.userInfo
+    }
+    /*
+    wepy.authorize({
+      scope: 'scope.record',
+      success() {
+        // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+        wx.startRecord()
+      }
+    })
+    */
+    wepy.getUserInfo({
+      success (res) {
+        console.log('getUserInfo success')
+        that.globalData.userInfo = res.userInfo
+        cb && cb(res.userInfo)
+      },
+      fail(err) {
+        console.log(err)
+      }
+    })//.then(res=>console.log("res", res)).catch(err=>console.log("err", err))
+  }
+}
+</script>

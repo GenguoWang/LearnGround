@@ -1,6 +1,8 @@
 {
   "description": "learn nodejs",
   "dependencies": {
+    "md5": "^2.2.1",
+    "xml-js": "^1.6.7",
     "yargs": "^5.0.0"
   }
 }

@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+  <title>XOR</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="stylesheet" href="/thirdparty/ratchet/css/ratchet.css">
+  <style>
+    .board {
+      position:absolute;
+    }
+
+    .small {
+      width: 201px;
+      height: 201px;
+      border:1px solid #aaaaaa;
+    }
+
+    .large {
+      width: 301px;
+      height: 301px;
+      border:1px solid #222222;
+    }
+
+    .boardTop {
+      position: relative;;
+    }
+    .container {
+      position: relative;
+      width:301px;
+    }
+
+  </style>
+</head>
+<body class="body">
+  <div class="container">
+    <div style="position:absolute; right:0; top:0;z-index:9999;">
+      <div>XOR</div>
+      <div>
+        <button type="button" id="edit" class="btn">Edit</button>
+      </div>
+      <div>
+        <button type="button" id="clear" class="btn">Clear</button>
+      </div>
+      <div>
+        <button type="button" id="add" class="btn">Add</button>
+      </div>
+    </div>
+    <div style="position:relative">
+      <canvas id="bgTarget" class="board small"></canvas>
+      <canvas id="voiTarget" class="boardTop small"></canvas>
+    </div>
+    <div>
+      <canvas id="bg" class="board large"></canvas>
+      <canvas id="voi" class="board large"></canvas>
+      <canvas id="editor" class="boardTop large"></canvas>
+    </div>
+  </div>
+  <script src="/dist/js/index.entry.js"></script>
+</body>
+</html>
